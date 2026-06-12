@@ -74,7 +74,22 @@ new_code/
 - `DEEPSEEK_API_KEY`: your API key (or set via env var `DEEPSEEK_API_KEY`)
 - `CUDA_VISIBLE_DEVICES`: GPU devices to use (default: `"0,1"`)
 
-### 2. Run the Full Pipeline
+### 2. Evaluate Pre-computed Results
+
+Pre-computed results for DeepSeek-v3 and LLaMA 3.1 8B are included in `dataset/MultiTQ/outputs/`.
+
+```bash
+# Evaluate both models
+python -m main --eval-only all
+
+# Evaluate DeepSeek only
+python -m main --eval-only deepseek
+
+# Evaluate LLaMA only
+python -m main --eval-only llama
+```
+
+### 3. Run the Full Pipeline
 
 ```bash
 # Run full pipeline with DeepSeek API (Steps 1-6)
@@ -88,21 +103,6 @@ python -m main --start-step 3
 
 # Skip causal filtering (Step 4)
 python -m main --no-causal
-```
-
-### 3. Evaluate Pre-computed Results
-
-Pre-computed results for DeepSeek-v3 and LLaMA 3.1 8B are included in `dataset/MultiTQ/outputs/`.
-
-```bash
-# Evaluate both models
-python -m main --eval-only all
-
-# Evaluate DeepSeek only
-python -m main --eval-only deepseek
-
-# Evaluate LLaMA only
-python -m main --eval-only llama
 ```
 
 ## Query Types Supported
