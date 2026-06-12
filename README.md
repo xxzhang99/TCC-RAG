@@ -78,16 +78,16 @@ new_code/
 
 ```bash
 # Run full pipeline with DeepSeek API (Steps 1-6)
-python -m new_code.main
+python -m main
 
 # Run full pipeline with local LLaMA
-python -m new_code.main --local
+python -m main --local
 
 # Start from a specific step (skip earlier steps)
-python -m new_code.main --start-step 3
+python -m main --start-step 3
 
 # Skip causal filtering (Step 4)
-python -m new_code.main --no-causal
+python -m main --no-causal
 ```
 
 ### 3. Evaluate Pre-computed Results
@@ -96,13 +96,13 @@ Pre-computed results for DeepSeek-v3 and LLaMA 3.1 8B are included in `dataset/M
 
 ```bash
 # Evaluate both models
-python -m new_code.main --eval-only all
+python -m main --eval-only all
 
 # Evaluate DeepSeek only
-python -m new_code.main --eval-only deepseek
+python -m main --eval-only deepseek
 
 # Evaluate LLaMA only
-python -m new_code.main --eval-only llama
+python -m main --eval-only llama
 ```
 
 ## Query Types Supported
