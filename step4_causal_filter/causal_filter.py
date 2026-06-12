@@ -1,15 +1,9 @@
 """
-Step 4: Causal Fact Filtering.
+[LEGACY] Step 4: Causal Fact Filtering (old design, not used in pipeline).
 
-Filters graph-retrieved facts to remove redundancy and keep only causally relevant ones.
-Pipeline:
-1. Check if causal filtering should be triggered (based on fact count & redundancy score)
-2. Use LLM (CausalFactGenerator) to minimize the fact set
-3. Verify consistency (CausalFactEvaluator) - filtered facts should yield same answer
-4. Return filtered facts if consistent, otherwise fallback to original
-
-Usage:
-    python -m new_code.step4_causal_filter.causal_filter
+This file implements the original trigger-score + answer-level consistency design.
+It has been superseded by causal_evidence_filter.py (CSEF).
+Kept for reference only.
 """
 import json
 import os

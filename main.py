@@ -171,16 +171,16 @@ def run_step3():
 
 
 def run_step4():
-    """Step 4: Causal Fact Filtering."""
-    print_step(4, "Causal Fact Filtering")
+    """Step 4: Causal Fact Filtering (CSEF)."""
+    print_step(4, "Causal Fact Filtering (CSEF)")
 
-    if not check_file_exists(GRAPH_RETRIEVE_OUTPUT, "Graph retrieval results"):
+    if not check_file_exists(SEMANTIC_RETRIEVE_OUTPUT, "Semantic retrieval results"):
         print("  -> Run Step 3 first.")
         return False
 
-    print("\n  Running causal fact filtering...")
-    from step4_causal_filter.causal_filter import process_causal_filter
-    process_causal_filter()
+    print("\n  Running causal evidence filter (semantic mode)...")
+    from step4_causal_filter.causal_evidence_filter import process_causal_evidence_filter
+    process_causal_evidence_filter(mode="semantic")
 
     return True
 

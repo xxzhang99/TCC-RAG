@@ -49,7 +49,7 @@ from config import (
     QUESTIONS_PROCESSED_PATH,
 )
 
-from new_code.step4_causal_filter.csef import CSEF, parse_fact
+from step4_causal_filter.csef import CSEF, parse_fact
 
 
 # ============================================================
