@@ -88,7 +88,7 @@ def batched_generate(model, tokenizer, prompts, batch_size=None, max_new_tokens=
 # Prompt Template (same as API version)
 # ============================================================
 
-BASE_PROMPT = """You are a temporal knowledge question answering assistant..
+BASE_PROMPT = """You are a temporal knowledge question answering assistant.
 Given a list of Historical facts and a Question, return ONLY a JSON object:{{"answers": [...]}}. Do NOT include any code block or explanation
 
 Rules:

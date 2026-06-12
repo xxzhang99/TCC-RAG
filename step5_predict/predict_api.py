@@ -94,7 +94,7 @@ async def ds_generate_batched_async(prompts, max_concurrency=None):
 # Prompt Template
 # ============================================================
 
-BASE_PROMPT = """You are a temporal knowledge question answering assistant..
+BASE_PROMPT = """You are a temporal knowledge question answering assistant.
 Given a list of Historical facts and a Question, return ONLY a JSON object:{{"answers": [...]}}.
 
 Rules:

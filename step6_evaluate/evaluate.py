@@ -98,7 +98,7 @@ def evaluate_items(items, k=1):
     stats_by_qlabel = defaultdict(lambda: {"hit": 0, "total": 0})
 
     qtypes = ["equal", "equal_multi", "before_after", "first_last", "before_last", "after_first"]
-    stats_by_qtype = {q: defaultdict(lambda: {"hit": 0, "total": 0}) for q in qtypes}
+    stats_by_qtype = {q: {"hit": 0, "total": 0} for q in qtypes}
 
     for item in items:
         pred = normalize_prediction(item["model_answer"])
@@ -130,8 +130,8 @@ def evaluate_items(items, k=1):
         stats_by_qlabel[qlabel]["total"] += 1
 
         if qtype in stats_by_qtype:
-            stats_by_qtype[qtype][qtype]["hit"] += hit
-            stats_by_qtype[qtype][qtype]["total"] += 1
+            stats_by_qtype[qtype]["hit"] += hit
+            stats_by_qtype[qtype]["total"] += 1
 
     return {
         "hit_rate": sum(hit_list) / len(hit_list) if hit_list else 0,
@@ -168,11 +168,10 @@ def evaluate_file(json_path, k=1, save_wrong=True):
         print(f"  {label}: {acc:.2f}% ({s['hit']}/{s['total']})")
 
     print("\nBy QType:")
-    for qtype, stat_dict in result["stats_by_qtype"].items():
-        for lvl, s in stat_dict.items():
-            if s["total"] > 0:
-                acc = s["hit"] * 100 / s["total"]
-                print(f"  {qtype}: {acc:.2f}% ({s['hit']}/{s['total']})")
+    for qtype, s in result["stats_by_qtype"].items():
+        if s["total"] > 0:
+            acc = s["hit"] * 100 / s["total"]
+            print(f"  {qtype}: {acc:.2f}% ({s['hit']}/{s['total']})")
 
     # Save wrong cases
     if save_wrong:

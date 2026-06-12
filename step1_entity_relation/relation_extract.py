@@ -16,7 +16,8 @@ from tqdm import tqdm
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import (
-    LLAMA_MODEL_ID, NER_ENTITY_OUTPUT, NER_RELATION_OUTPUT, NER_OUTPUT_DIR
+    LLAMA_MODEL_ID, NER_ENTITY_OUTPUT, NER_RELATION_OUTPUT, NER_OUTPUT_DIR,
+    LOCAL_BATCH_SIZE, LOCAL_MAX_NEW_TOKENS
 )
 
 
@@ -43,8 +44,11 @@ def load_llama_model(model_id=None):
 # Batched Generation
 # ============================================================
 
-def batched_generate(model, tokenizer, prompts, batch_size=16, max_new_tokens=256):
+def batched_generate(model, tokenizer, prompts,
+                     batch_size=None, max_new_tokens=None):
     """Generate responses in batches using LLaMA."""
+    batch_size     = batch_size     or LOCAL_BATCH_SIZE
+    max_new_tokens = max_new_tokens or LOCAL_MAX_NEW_TOKENS
     results = []
     for i in tqdm(range(0, len(prompts), batch_size), desc="Relation Extract"):
         batch = prompts[i: i + batch_size]
@@ -211,7 +215,7 @@ def process_relations(input_path, output_path, model, tokenizer):
         for item in data
     ]
 
-    outputs = batched_generate(model, tokenizer, prompts, batch_size=16)
+    outputs = batched_generate(model, tokenizer, prompts)
 
     final_results = []
     for item, out in zip(data, outputs):

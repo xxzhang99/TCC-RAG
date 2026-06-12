@@ -203,6 +203,25 @@ def run_step5_api():
     return True
 
 
+def run_step5_local():
+    """Step 5: Answer Generation (Local LLM mode)."""
+    print_step(5, "Answer Generation (Local LLaMA)")
+
+    if not check_file_exists(GRAPH_RETRIEVE_OUTPUT, "Graph retrieval results"):
+        return False
+    if not check_file_exists(SEMANTIC_RETRIEVE_OUTPUT, "Semantic retrieval results"):
+        return False
+    if not check_file_exists(CAUSAL_FILTER_OUTPUT, "Causal filter results"):
+        print("  [WARN] Causal results not found, will proceed without causal facts.")
+
+    print("\n  Loading LLaMA model and running prediction...")
+    from step5_predict.predict_local import process_predictions, load_llama_model
+    model, tokenizer = load_llama_model()
+    process_predictions(model=model, tokenizer=tokenizer)
+
+    return True
+
+
 def run_step6(target="all"):
     """Step 6: Evaluation.
 
@@ -234,22 +253,6 @@ def run_step6(target="all"):
             continue
         print(f"\n  >>> {name}")
         evaluate_file(path, k=1)
-
-    return True
-    """Step 5: Answer Generation (Local LLM mode)."""
-    print_step(5, "Answer Generation (Local LLaMA)")
-
-    if not check_file_exists(GRAPH_RETRIEVE_OUTPUT, "Graph retrieval results"):
-        return False
-    if not check_file_exists(SEMANTIC_RETRIEVE_OUTPUT, "Semantic retrieval results"):
-        return False
-    if not check_file_exists(CAUSAL_FILTER_OUTPUT, "Causal filter results"):
-        print("  [WARN] Causal results not found, will proceed without causal facts.")
-
-    print("\n  Loading LLaMA model and running prediction...")
-    from step5_predict.predict_local import process_predictions, load_llama_model
-    model, tokenizer = load_llama_model()
-    process_predictions(model=model, tokenizer=tokenizer)
 
     return True
 
